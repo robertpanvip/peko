@@ -5,7 +5,10 @@ export type Config = {
     onMessage: (data: ArrayBuffer | string) => void;
     onError: (ev: Event) => void;
     onClose: (ev: CloseEvent) => void;
-    pinData: object;
+    pin: {
+        data?: object,
+        timeout?: number
+    }
 };
 
 class Socket {
@@ -68,9 +71,9 @@ class Socket {
     //心跳连接 防止连接断掉
     private ping() {
         this.timer = setTimeout(() => {
-            this.sendData(this.config.pinData ?? {type: "PING", data: ""});
+            this.sendData(this.config.pin?.data ?? {type: "PING", data: ""});
             this.ping();
-        }, 1000 * 30);
+        }, this.config.pin?.timeout ?? 1000 * 30);
     }
 
     /**连接成功*/
