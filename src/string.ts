@@ -6,9 +6,16 @@ export function toKebabCase(str: string): string {
     .toLowerCase();
 }
 
-export function fromKebabCase(input: string): string {
-  return input.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+export function toCamelCase(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/(?:[_-\s]+(.)|^(.))/g, (match, group1, group2) => {
+      const firstChar = group1 || group2;
+      return firstChar ? firstChar.toUpperCase() : '';
+    })
+    .replace(/^./, match => match.toLowerCase());
 }
+
 
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
