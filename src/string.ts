@@ -16,7 +16,7 @@ export function toCamelCase(str: string): string {
     .replace(/^./, match => match.toLowerCase());
 }
 
-
+/**将字符串的首字母大写。*/
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
